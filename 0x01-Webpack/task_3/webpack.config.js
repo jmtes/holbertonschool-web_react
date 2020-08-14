@@ -1,11 +1,16 @@
 const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
-  entry: './js/dashboard_main.js',
+  mode: 'development',
+  entry: {
+    header: './modules/header/header.js',
+    body: './modules/body/body.js',
+    footer: './modules/footer/footer.js'
+  },
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -23,5 +28,15 @@ module.exports = {
   },
   devServer: {
     port: 8564
-  }
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
+  plugins: [
+    new HTMLWebpackPlugin({
+      filename: 'public/index.html'
+    })
+  ]
 };
