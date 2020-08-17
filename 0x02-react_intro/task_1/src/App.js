@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+
 import logo from './dashboard/logo.jpg';
 import './App.css';
+import { getFullYear, getFooterCopy } from './dashboard/utils';
 
 function App() {
   return (
@@ -13,7 +15,7 @@ function App() {
         <p>Log in to access the full dashboard</p>
       </div>
       <div className='App-footer'>
-        <p>Copyright 2020 - Holberton School</p>
+        <p>{`Copyright ${getFullYear()} - ${getFooterCopy(true)}`}</p>
       </div>
     </Fragment>
   );
