@@ -5,8 +5,8 @@ import Notifications from './dashboard/Notifications';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
     <Notifications />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
