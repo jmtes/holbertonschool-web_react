@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment } from 'react';
+import logo from './dashboard/logo.jpg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div className='App-header'>
+        <img src={logo} alt='Logo'></img>
+        <h1>School Dashboard</h1>
+      </div>
+      <div className='App-body'>
+        <p>Log in to access the full dashboard</p>
+      </div>
+      <div className='App-footer'>
+        <p>Copyright 2020 - Holberton School</p>
+      </div>
+    </Fragment>
   );
 }
 
