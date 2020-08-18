@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
-import logo from './dashboard/logo.jpg';
+import logo from './logo.jpg';
 import './App.css';
-import { getFullYear, getFooterCopy } from './dashboard/utils';
+import { getFullYear, getFooterCopy } from './utils';
 
 function App() {
   return (
