@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 
-export default App = () => {
+const App = () => {
   return (
     <Fragment>
-      <p>Hello Dashboard!</p>
+      <h1>Hello Dashboard!</h1>
     </Fragment>
   );
 };
+
+export default App;
