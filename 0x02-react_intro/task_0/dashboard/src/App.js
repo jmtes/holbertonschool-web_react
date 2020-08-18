@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import logo from './dashboard/logo.jpg';
+import logo from './logo.jpg';
 import './App.css';
 
 function App() {
