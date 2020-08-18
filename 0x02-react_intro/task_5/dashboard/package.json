@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.js --mode development --open --hot",
     "build": "webpack --config config/webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "license": "ISC",
   "dependencies": {
@@ -20,9 +20,11 @@
     "babel": "^6.23.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.2.1",
+    "enzyme": "^3.11.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "image-webpack-loader": "^6.0.0",
+    "jest": "^26.4.0",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
