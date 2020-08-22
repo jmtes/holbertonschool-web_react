@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.js --mode development --open --hot",
     "build": "webpack --config config/webpack.config.js",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "license": "ISC",
   "dependencies": {
