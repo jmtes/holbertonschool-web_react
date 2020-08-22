@@ -357,15 +357,3 @@ body {
 .App-body {
   padding: 4rem;
 }
-
-label {
-  padding: 1rem;
-}
-
-label:first-of-type {
-  padding-left: 0;
-}
-
-input + button {
-  margin: 0 2rem;
-}

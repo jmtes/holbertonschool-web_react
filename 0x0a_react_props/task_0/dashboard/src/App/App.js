@@ -4,20 +4,14 @@ import './App.css';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Login from '../Login/Login';
 
 function App() {
   return (
     <Fragment>
       <Header />
       <div className='App-body'>
-        <p>Log in to access the full dashboard</p>
-        <label htmlFor='email'>Email:</label>
-        <input type='email' name='email' id='email' />
-
-        <label htmlFor='password'>Password:</label>
-        <input type='password' name='password' id='password' />
-
-        <button>OK</button>
+        <Login />
       </div>
       <Footer />
     </Fragment>
