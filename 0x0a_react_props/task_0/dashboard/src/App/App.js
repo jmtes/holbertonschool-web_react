@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import './App.css';
-import { getFullYear, getFooterCopy } from '../utils/utils';
 
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
@@ -19,9 +19,7 @@ function App() {
 
         <button>OK</button>
       </div>
-      <div className='App-footer'>
-        <p>{`Copyright ${getFullYear()} - ${getFooterCopy(true)}`}</p>
-      </div>
+      <Footer />
     </Fragment>
   );
 }

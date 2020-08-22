@@ -358,16 +358,6 @@ body {
   padding: 4rem;
 }
 
-.App-footer {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  border-top: 3px solid #e1354b;
-  text-align: center;
-  font-style: italic;
-  padding: 1rem 0;
-}
-
 label {
   padding: 1rem;
 }
