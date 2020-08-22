@@ -12,15 +12,11 @@ describe('Login', () => {
 
   test('renders two input tags', () => {
     const wrapper = shallow(<Login />);
+
     const inputs = wrapper.find('input');
-
-    expect(inputs.length).toBe(2);
-  });
-
-  test('renders two label tags', () => {
-    const wrapper = shallow(<Login />);
     const labels = wrapper.find('label');
 
+    expect(inputs.length).toBe(2);
     expect(labels.length).toBe(2);
   });
 });

@@ -10,18 +10,13 @@ describe('Header', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  test('renders an image', () => {
+  test('renders an image and h1', () => {
     const wrapper = shallow(<Header />);
+
     const image = wrapper.find('img');
-
-    expect(image.exists()).toBe(true);
-  });
-
-  test('renders an h1', () => {
-    const wrapper = shallow(<Header />);
     const h1 = wrapper.find('h1');
 
+    expect(image.exists()).toBe(true);
     expect(h1.exists()).toBe(true);
-    expect(h1.text()).toBe('School Dashboard');
   });
 });
