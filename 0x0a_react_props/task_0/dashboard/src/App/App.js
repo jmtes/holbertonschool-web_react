@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
 
-import logo from '../assets/logo.jpg';
 import './App.css';
 import { getFullYear, getFooterCopy } from '../utils/utils';
+
+import Header from '../Header/Header';
 
 function App() {
   return (
     <Fragment>
-      <div className='App-header'>
-        <img src={logo} alt='Logo'></img>
-        <h1>School Dashboard</h1>
-      </div>
+      <Header />
       <div className='App-body'>
         <p>Log in to access the full dashboard</p>
         <label htmlFor='email'>Email:</label>
