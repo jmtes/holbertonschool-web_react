@@ -5,10 +5,10 @@
   margin: 1rem;
 }
 
-ul li[data-priority='default'] {
+ul li[data-notification-type='default'] {
   color: blue;
 }
 
-ul li[data-priority='urgent'] {
+ul li[data-notification-type='urgent'] {
   color: red;
 }
