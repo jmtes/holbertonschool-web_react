@@ -27,7 +27,9 @@ const CourseList = ({ listCourses }) => {
             />
           ))
         ) : (
-          <td colSpan='2'>No course available yet</td>
+          <tr>
+            <td colSpan='2'>No course available yet</td>
+          </tr>
         )}
       </tbody>
     </table>
