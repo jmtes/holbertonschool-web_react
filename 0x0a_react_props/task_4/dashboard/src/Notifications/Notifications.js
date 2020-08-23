@@ -9,7 +9,7 @@ import NotificationItem from './NotificationItem';
 
 export const Notifications = ({ displayDrawer }) => {
   return (
-    <Fragment>
+    <div className='notifications-wrapper'>
       <div className='menuItem'>Your Notifications</div>
       {displayDrawer && (
         <div className='Notifications'>
@@ -41,7 +41,7 @@ export const Notifications = ({ displayDrawer }) => {
           </button>
         </div>
       )}
-    </Fragment>
+    </div>
   );
 };
 
