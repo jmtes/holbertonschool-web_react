@@ -6,6 +6,7 @@ import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
+import CourseList from '../CourseList/CourseList';
 
 describe('App', () => {
   test('renders without crashing', () => {
@@ -40,5 +41,22 @@ describe('App', () => {
     const footer = wrapper.find(Footer);
 
     expect(footer.length).toBe(1);
+  });
+
+  test('course list not displayed by default', () => {
+    const wrapper = shallow(<App />);
+    const courseList = wrapper.find(CourseList);
+
+    expect(courseList.length).toBe(0);
+  });
+
+  test('if logged in, course list is displayed and login form is not', () => {
+    const wrapper = shallow(<App isLoggedIn={true} />);
+
+    const login = wrapper.find(Login);
+    const courseList = wrapper.find(CourseList);
+
+    expect(login.length).toBe(0);
+    expect(courseList.length).toBe(1);
   });
 });
