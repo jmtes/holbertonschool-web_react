@@ -19,13 +19,13 @@ const CourseList = ({ listCourses }) => {
       </thead>
       <tbody>
         {listCourses.length ? (
-          listCourses.map(({ id, name, credit }) => {
+          listCourses.map(({ id, name, credit }) => (
             <CourseListRow
               key={id}
               textFirstCell={name}
               textSecondCell={credit}
-            />;
-          })
+            />
+          ))
         ) : (
           <td colSpan='2'>No course available yet</td>
         )}
