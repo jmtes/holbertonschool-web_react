@@ -1,8 +1,18 @@
-.Notifications {
-  border: 1px dashed #e1354b;
+.Notifications,
+.menuItem {
   padding: 1rem;
   position: relative;
-  margin: 1rem;
+  margin: 0.5rem;
+}
+
+.Notifications {
+  border: 1px dashed #e1354b;
+  margin-top: 0;
+  background-color: white;
+}
+
+.menuItem {
+  margin-bottom: 0;
 }
 
 ul li[data-notification-type='default'] {
@@ -11,4 +21,13 @@ ul li[data-notification-type='default'] {
 
 ul li[data-notification-type='urgent'] {
   color: red;
+}
+
+.notifications-wrapper {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-end;
 }
