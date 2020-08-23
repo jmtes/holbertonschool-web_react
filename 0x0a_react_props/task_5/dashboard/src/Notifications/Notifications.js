@@ -6,22 +6,31 @@ import closeIcon from '../assets/close-icon.png';
 import { getLatestNotification } from '../utils/utils';
 
 import NotificationItem from './NotificationItem';
+import NotificationItemShape from './NotificationItemShape';
 
-export const Notifications = ({ displayDrawer }) => {
+export const Notifications = ({ displayDrawer, listNotifications }) => {
   return (
     <div className='notifications-wrapper'>
       <div className='menuItem'>Your Notifications</div>
       {displayDrawer && (
         <div className='Notifications'>
-          <p>Here is the list of notifications</p>
-          <ul>
-            <NotificationItem type='default' value='New course available' />
-            <NotificationItem type='urgent' value='New resume available' />
-            <NotificationItem
-              type='urgent'
-              html={{ __html: getLatestNotification() }}
-            />
-          </ul>
+          {listNotifications.length ? (
+            <Fragment>
+              <p>Here is the list of notifications</p>
+              <ul>
+                {listNotifications.map(({ id, type, value, html }) => (
+                  <NotificationItem
+                    key={id}
+                    type={type}
+                    value={value}
+                    html={html}
+                  />
+                ))}
+              </ul>
+            </Fragment>
+          ) : (
+            <p>No new notifications for now</p>
+          )}
           <button
             style={{
               position: 'absolute',
@@ -46,11 +55,13 @@ export const Notifications = ({ displayDrawer }) => {
 };
 
 Notifications.propTypes = {
-  displayDrawer: PropTypes.bool
+  displayDrawer: PropTypes.bool,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape)
 };
 
 Notifications.defaultProps = {
-  displayDrawer: false
+  displayDrawer: false,
+  listNotifications: []
 };
 
 export default Notifications;
