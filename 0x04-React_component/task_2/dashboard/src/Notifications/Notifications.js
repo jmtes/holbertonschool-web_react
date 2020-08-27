@@ -9,6 +9,11 @@ import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 
 class Notifications extends Component {
+  constructor(props) {
+    super(props);
+    this.markAsRead = this.markAsRead.bind(this);
+  }
+
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }
