@@ -101,4 +101,15 @@ describe('Notifications', () => {
     expect(noNewNotifs.length).toBe(1);
     expect(noNewNotifs.text()).toBe('No new notifications for now');
   });
+
+  test('markAsRead calls console.log', () => {
+    console.log = jest.fn();
+
+    const wrapper = shallow(<Notifications />);
+    wrapper.instance().markAsRead(0);
+
+    expect(console.log).toHaveBeenCalledWith(
+      `Notification 0 has been marked as read`
+    );
+  });
 });
