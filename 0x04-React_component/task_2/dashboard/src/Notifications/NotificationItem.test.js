@@ -30,4 +30,16 @@ describe('NotificationItem', () => {
       __html: '<u>test</u>'
     });
   });
+
+  test('markAsRead is called on click', () => {
+    const spy = jest.fn();
+
+    const wrapper = shallow(
+      <NotificationItem key={0} id={0} markAsRead={spy} />
+    );
+    wrapper.simulate('click');
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(0);
+  });
 });
