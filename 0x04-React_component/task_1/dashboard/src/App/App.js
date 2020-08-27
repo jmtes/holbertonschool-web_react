@@ -32,6 +32,11 @@ class App extends Component {
     });
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('keydown');
+    window.removeEventListener('keyup');
+  }
+
   render() {
     const { isLoggedIn } = this.props;
 
