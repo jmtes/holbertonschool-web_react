@@ -59,4 +59,24 @@ describe('App', () => {
     expect(login.length).toBe(0);
     expect(courseList.length).toBe(1);
   });
+
+  test('logout keyboard shortcut works', () => {
+    const map = {};
+    window.addEventListener = jest.fn((ev, cb) => {
+      map[ev] = cb;
+    });
+
+    window.alert = jest.fn();
+
+    const testProps = {
+      logOut: jest.fn()
+    };
+    const wrapper = shallow(<App {...testProps} />);
+
+    map.keydown({ key: 'Control' });
+    map.keydown({ key: 'h' });
+
+    expect(testProps.logOut).toHaveBeenCalled();
+    expect(window.alert).toHaveBeenCalledWith('Logging you out');
+  });
 });
