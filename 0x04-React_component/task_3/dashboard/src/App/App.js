@@ -8,6 +8,8 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
+import BodySection from '../BodySection/BodySection';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 
 class App extends Component {
   componentDidMount() {
@@ -64,8 +66,27 @@ class App extends Component {
         <div className='App'>
           <Header />
           <div className='App-body'>
-            {!isLoggedIn && <Login />}
-            {isLoggedIn && <CourseList listCourses={listCourses} />}
+            {!isLoggedIn && (
+              <BodySectionWithMarginBottom title='Log in to continue'>
+                <Login />
+              </BodySectionWithMarginBottom>
+            )}
+            {isLoggedIn && (
+              <BodySectionWithMarginBottom title='Course List'>
+                <CourseList listCourses={listCourses} />
+              </BodySectionWithMarginBottom>
+            )}
+            <BodySection title='News from the School'>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                accumsan ex ut erat tincidunt, vel euismod magna eleifend.
+                Aenean posuere quis urna vitae aliquam. Fusce tristique vel diam
+                id volutpat. Nunc vitae aliquam mi, vestibulum mollis augue. In
+                efficitur pellentesque aliquet. Mauris eleifend orci at
+                convallis viverra. Interdum et malesuada fames ac ante ipsum
+                primis in faucibus. Nulla vel nunc magna.
+              </p>
+            </BodySection>
           </div>
           <Footer />
         </div>
