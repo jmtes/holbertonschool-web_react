@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import BodySection from './BodySection';
 
-import './BodySectionWithMargin.css';
+import './BodySectionWithMarginBottom.css';
 
 const BodySectionWithMarginBottom = (props) => {
   return (
