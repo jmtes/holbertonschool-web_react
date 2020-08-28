@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
 
 const WithLogging = (WrappedComponent) => {
   return class extends Component {
+    static displayName = `WithLogging(${
+      WrappedComponent.displayName || 'Component'
+    })`;
+
     constructor(props) {
       super(props);
-      this.displayName = `WithLogging(${
-        WrappedComponent.displayName || 'Component'
-      })`;
     }
 
     componentDidMount() {
@@ -22,6 +22,10 @@ const WithLogging = (WrappedComponent) => {
           WrappedComponent.displayName || 'Component'
         } is going to unmount`
       );
+    }
+
+    render() {
+      return <WrappedComponent {...this.props} />;
     }
   };
 };
