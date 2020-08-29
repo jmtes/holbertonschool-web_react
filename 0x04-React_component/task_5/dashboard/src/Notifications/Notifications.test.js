@@ -112,4 +112,47 @@ describe('Notifications', () => {
       `Notification 0 has been marked as read`
     );
   });
+
+  test('updates only if there are new notifs', () => {
+    const initialNotifs = [
+      { id: 0, type: 'default', value: 'test 0' },
+      { id: 1, type: 'default', value: 'test 1' }
+    ];
+    const wrapper = shallow(
+      <Notifications displayDrawer={true} listNotifications={initialNotifs} />
+    );
+
+    const shouldComponentUpdate = jest.spyOn(
+      Notifications.prototype,
+      'shouldComponentUpdate'
+    );
+
+    expect(shouldComponentUpdate).toHaveBeenCalledTimes(0);
+
+    // listNotifications is longer
+    const longerNotifs = initialNotifs.slice();
+    longerNotifs.push({ id: 2, type: 'default', value: 'test 2' });
+
+    wrapper.setProps({ listNotifications: longerNotifs });
+
+    expect(shouldComponentUpdate).toHaveBeenCalledTimes(1);
+    expect(shouldComponentUpdate).toHaveLastReturnedWith(true);
+
+    // listNotifications stays same length
+    const sameNotifs = longerNotifs.slice();
+
+    wrapper.setProps({ listNotifications: sameNotifs });
+
+    expect(shouldComponentUpdate).toHaveBeenCalledTimes(2);
+    expect(shouldComponentUpdate).toHaveLastReturnedWith(false);
+
+    // listNotifications is shorter
+    const shorterNotifs = sameNotifs.slice();
+    shorterNotifs.pop();
+
+    wrapper.setProps({ listNotifications: sameNotifs });
+
+    expect(shouldComponentUpdate).toHaveBeenCalledTimes(3);
+    expect(shouldComponentUpdate).toHaveLastReturnedWith(false);
+  });
 });
