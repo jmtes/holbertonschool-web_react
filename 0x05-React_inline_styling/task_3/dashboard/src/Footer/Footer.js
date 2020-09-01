@@ -14,12 +14,13 @@ const Footer = () => {
 const styles = StyleSheet.create({
   footer: {
     width: '100%',
-    position: 'absolute',
+    position: 'fixed',
     bottom: '0px',
     borderTop: '3px solid #e1354b',
     textAlign: 'center',
     fontStyle: 'italic',
-    padding: '1rem 0'
+    padding: '1rem 0',
+    backgroundColor: 'white'
   }
 });
 

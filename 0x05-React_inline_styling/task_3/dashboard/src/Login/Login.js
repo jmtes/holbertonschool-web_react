@@ -5,20 +5,26 @@ const Login = () => {
   return (
     <Fragment>
       <p>Log in to access the full dashboard</p>
-      <label
-        htmlFor='email'
-        className={css(styles.label, styles['email-label'])}
-      >
-        Email:
-      </label>
-      <input type='email' name='email' id='email' />
+      <div className={css(styles.form)}>
+        <div className={css(styles['input-group'])}>
+          <label
+            htmlFor='email'
+            className={css(styles.label, styles['email-label'])}
+          >
+            Email:
+          </label>
+          <input type='email' name='email' id='email' />
+        </div>
 
-      <label htmlFor='password' className={css(styles.label)}>
-        Password:
-      </label>
-      <input type='password' name='password' id='password' />
+        <div className={css(styles['input-group'])}>
+          <label htmlFor='password' className={css(styles.label)}>
+            Password:
+          </label>
+          <input type='password' name='password' id='password' />
+        </div>
 
-      <button className={css(styles.button)}>OK</button>
+        <button className={css(styles.button)}>OK</button>
+      </div>
     </Fragment>
   );
 };
@@ -27,13 +33,33 @@ Login.displayName = 'Login';
 
 const styles = StyleSheet.create({
   label: {
-    padding: '1rem'
+    '@media (min-width: 901px)': {
+      padding: '1rem'
+    },
+    '@media (max-width: 900px)': {
+      marginRight: '0.5rem'
+    }
   },
   'email-label': {
     paddingLeft: 0
   },
   button: {
-    margin: '0 2rem'
+    '@media (min-width: 901px)': {
+      margin: '0 2rem'
+    },
+    '@media (max-width: 900px)': {
+      margin: '0.25rem 0'
+    }
+  },
+  form: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignContent: 'flex-start'
+  },
+  'input-group': {
+    '@media (max-width: 900px)': {
+      margin: '0.25rem 0'
+    }
   }
 });
 

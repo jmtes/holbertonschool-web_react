@@ -109,7 +109,12 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif'
   },
   padding: {
-    padding: '4rem'
+    '@media (min-width: 901px)': {
+      padding: '4rem'
+    },
+    '@media (max-width: 900px)': {
+      padding: '2rem 2rem 50px 2rem'
+    }
   }
 });
 
