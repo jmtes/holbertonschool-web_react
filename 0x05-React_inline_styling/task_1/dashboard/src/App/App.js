@@ -1,7 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
-
-import './App.css';
+import { StyleSheet, css } from 'aphrodite';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -63,9 +62,9 @@ class App extends Component {
     return (
       <Fragment>
         <Notifications listNotifications={listNotifications} />
-        <div className='App'>
+        <div className={css(styles['sans-serif'])}>
           <Header />
-          <div className='App-body'>
+          <div className={css(styles.padding)}>
             {!isLoggedIn && (
               <BodySectionWithMarginBottom title='Log in to continue'>
                 <Login />
@@ -104,5 +103,14 @@ App.defaultProps = {
   isLoggedIn: false,
   logOut: () => {}
 };
+
+const styles = StyleSheet.create({
+  'sans-serif': {
+    fontFamily: 'sans-serif'
+  },
+  padding: {
+    padding: '4rem'
+  }
+});
 
 export default App;

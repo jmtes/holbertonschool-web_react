@@ -1,9 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 
-import './Notifications.css';
 import closeIcon from '../assets/close-icon.png';
-import { getLatestNotification } from '../utils/utils';
 
 import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
@@ -28,10 +27,15 @@ class Notifications extends Component {
   render() {
     const { displayDrawer, listNotifications } = this.props;
     return (
-      <div className='notifications-wrapper'>
-        <div className='menuItem'>Your Notifications</div>
+      <div className={css(styles.wrapper)} data-testid='wrapper'>
+        <div
+          className={css(styles.div, styles['menu-item'])}
+          data-testid='menu-item'
+        >
+          Your Notifications
+        </div>
         {displayDrawer && (
-          <div className='Notifications'>
+          <div className={css(styles.div, styles.notifs)} data-testid='notifs'>
             {listNotifications.length ? (
               <Fragment>
                 <p>Here is the list of notifications</p>
@@ -84,5 +88,29 @@ Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: []
 };
+
+const styles = StyleSheet.create({
+  div: {
+    padding: '1rem',
+    position: 'relative',
+    margin: '0.5rem'
+  },
+  notifs: {
+    border: '1px dashed #e1354b',
+    marginTop: '0',
+    backgroundColor: 'white'
+  },
+  'menu-item': {
+    marginBottom: 0
+  },
+  wrapper: {
+    position: 'absolute',
+    right: '12px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'flex-end'
+  }
+});
 
 export default Notifications;
