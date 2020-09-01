@@ -1,9 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 import CourseListRow from './CourseListRow';
 
 describe('CourseListRow', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   test('renders one cell with colspan of 2 if isHeader is true and textSecondCell does not exist', () => {
     const wrapper = shallow(
       <CourseListRow isHeader={true} textFirstCell='test' />

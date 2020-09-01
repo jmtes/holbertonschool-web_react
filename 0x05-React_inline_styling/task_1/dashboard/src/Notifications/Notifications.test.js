@@ -1,10 +1,19 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 
 describe('Notifications', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   test('renders without crashing', () => {
     const wrapper = shallow(<Notifications />);
 
@@ -14,14 +23,14 @@ describe('Notifications', () => {
   describe('displayDrawer is true', () => {
     test('menu item is displayed', () => {
       const wrapper = shallow(<Notifications displayDrawer={true} />);
-      const menuItem = wrapper.find('.menuItem');
+      const menuItem = wrapper.find('[data-testid="menu-item"]');
 
       expect(menuItem.length).toBe(1);
     });
 
     test('notifications div is displayed', () => {
       const wrapper = shallow(<Notifications displayDrawer={true} />);
-      const notifs = wrapper.find('div.Notifications');
+      const notifs = wrapper.find('[data-testid="notifs"]');
 
       expect(notifs.length).toBe(1);
     });
@@ -30,7 +39,7 @@ describe('Notifications', () => {
   describe('displayDrawer is false', () => {
     test('menu item is displayed', () => {
       const wrapper = shallow(<Notifications />);
-      const menuItem = wrapper.find('.menuItem');
+      const menuItem = wrapper.find('[data-testid="menu-item"]');
 
       expect(menuItem.length).toBe(1);
     });
@@ -96,7 +105,7 @@ describe('Notifications', () => {
 
   describe('message displays properly', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
-    const noNewNotifs = wrapper.find('.Notifications p');
+    const noNewNotifs = wrapper.find('[data-testid="notifs"] p');
 
     expect(noNewNotifs.length).toBe(1);
     expect(noNewNotifs.text()).toBe('No new notifications for now');

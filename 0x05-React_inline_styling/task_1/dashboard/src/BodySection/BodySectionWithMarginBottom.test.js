@@ -2,11 +2,20 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import '@testing-library/react';
 import '@testing-library/jest-dom';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import BodySection from './BodySection';
 
 describe('BodySectionWithMarginBottom', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   test('should properly render children', () => {
     const wrapper = mount(
       <BodySectionWithMarginBottom title='heading'>
@@ -28,8 +37,8 @@ describe('BodySectionWithMarginBottom', () => {
 
   test('should have correct style applied', () => {
     const wrapper = mount(<BodySectionWithMarginBottom />);
-    const div = wrapper.find('.bodySectionWithMargin');
+    const div = wrapper.find('div');
 
-    expect(div.exists()).toBe(true);
+    expect(div.at(0).debug().includes('className="margin_')).toBe(true);
   });
 });

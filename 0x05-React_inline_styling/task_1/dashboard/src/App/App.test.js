@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 import App from './App';
 import Notifications from '../Notifications/Notifications';
@@ -9,6 +10,14 @@ import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
 
 describe('App', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   test('renders without crashing', () => {
     const wrapper = shallow(<App />);
 

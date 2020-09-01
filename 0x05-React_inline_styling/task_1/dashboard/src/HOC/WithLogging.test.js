@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { mount } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 import WithLogging from './WithLogging';
 import Login from '../Login/Login';
 
 describe('WithLogging', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   test('console.log called on mount', () => {
     console.log = jest.fn();
 
