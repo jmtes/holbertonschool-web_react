@@ -8,7 +8,7 @@ class NotificationItem extends PureComponent {
 
     return html === undefined ? (
       <li
-        className={css(styles[type])}
+        className={css(styles[type], styles.small)}
         data-notification-type={type}
         onClick={() => markAsRead(id)}
       >
@@ -16,7 +16,7 @@ class NotificationItem extends PureComponent {
       </li>
     ) : (
       <li
-        className={css(styles[type])}
+        className={css(styles[type], styles.small)}
         data-notification-type={type}
         dangerouslySetInnerHTML={html}
       ></li>
@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
   },
   urgent: {
     color: 'red'
+  },
+  small: {
+    '@media (max-width: 900px)': {
+      borderBottom: '1px solid black',
+      padding: '0.5rem 0'
+    }
   }
 });
 
