@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   small: {
     '@media (max-width: 900px)': {
       borderBottom: '1px solid black',
-      padding: '0.5rem 0'
+      padding: '10px 8px'
     }
   }
 });

@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
       height: '95vh',
       margin: '0',
       zIndex: '10',
-      border: '1px solid lightgray'
+      border: '1px solid lightgray',
+      fontSize: '20px'
     }
   },
   'menu-item': {
