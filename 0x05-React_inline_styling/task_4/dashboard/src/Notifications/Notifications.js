@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
@@ -11,26 +11,52 @@ class Notifications extends Component {
   constructor(props) {
     super(props);
     this.markAsRead = this.markAsRead.bind(this);
+    this.menuOnClick = this.menuOnClick.bind(this);
+    this.closeOnClick = this.closeOnClick.bind(this);
+    this.state = {
+      displayDrawer: props.displayDrawer
+    };
+    this.menuRef = createRef();
+    this.closeRef = createRef();
   }
 
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }
 
-  shouldComponentUpdate(nextProps) {
+  menuOnClick() {
+    this.menuRef.current.style.display = 'none';
+    this.setState({ displayDrawer: true });
+  }
+
+  closeOnClick() {
+    this.menuRef.current.style.display = 'block';
+    this.setState({ displayDrawer: false });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
     const currentNotifs = this.props.listNotifications;
     const newNotifs = nextProps.listNotifications;
 
-    return newNotifs.length > currentNotifs.length;
+    const currentDisplay = this.state.displayDrawer;
+    const newDisplay = nextState.displayDrawer;
+
+    return (
+      newNotifs.length > currentNotifs.length || newDisplay !== currentDisplay
+    );
   }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const { listNotifications } = this.props;
+    const { displayDrawer } = this.state;
+
     return (
       <div className={css(styles.wrapper)} data-testid='wrapper'>
         <div
           className={css(styles.div, styles['menu-item'])}
           data-testid='menu-item'
+          onClick={this.menuOnClick}
+          ref={this.menuRef}
         >
           Your Notifications
         </div>
@@ -61,10 +87,12 @@ class Notifications extends Component {
                 top: '10px',
                 right: '10px',
                 border: 'none',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                cursor: 'pointer'
               }}
               aria-label='Close'
-              onClick={() => console.log('Close button has been clicked')}
+              onClick={this.closeOnClick}
+              ref={this.closeRef}
             >
               <img
                 src={closeIcon}
@@ -87,6 +115,27 @@ Notifications.propTypes = {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: []
+};
+
+const opacityKeyframes = {
+  from: {
+    opacity: '0.5'
+  },
+  to: {
+    opacity: '1'
+  }
+};
+
+const bounceKeyframes = {
+  '0%': {
+    transform: 'translateY(0px)'
+  },
+  '50%': {
+    transform: 'translateY(-5px)'
+  },
+  '100%': {
+    transform: 'translateY(5px)'
+  }
 };
 
 const styles = StyleSheet.create({
@@ -115,6 +164,13 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     '@media (max-width: 900px)': {
       display: 'none'
+    },
+    ':hover': {
+      cursor: 'pointer',
+      animationName: [opacityKeyframes, bounceKeyframes],
+      animationDuration: '1s, 0.5s',
+      animationIterationCount: '3, 3',
+      animationTimingFunction: 'ease, ease'
     }
   },
   wrapper: {
