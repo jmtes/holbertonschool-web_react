@@ -88,4 +88,22 @@ describe('App', () => {
     expect(testProps.logOut).toHaveBeenCalled();
     expect(window.alert).toHaveBeenCalledWith('Logging you out');
   });
+
+  describe('correctly handles displayDrawer state', () => {
+    test('defaults to false', () => {
+      const wrapper = shallow(<App />);
+
+      expect(wrapper.state()).toHaveProperty('displayDrawer', false);
+    });
+
+    test('handleDisplayDrawer and handleHideDrawer work as expected', () => {
+      const wrapper = shallow(<App />);
+
+      wrapper.instance().handleDisplayDrawer();
+      expect(wrapper.state()).toHaveProperty('displayDrawer', true);
+
+      wrapper.instance().handleHideDrawer();
+      expect(wrapper.state()).toHaveProperty('displayDrawer', false);
+    });
+  });
 });
