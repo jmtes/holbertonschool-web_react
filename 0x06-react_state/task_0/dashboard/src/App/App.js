@@ -78,7 +78,12 @@ class App extends Component {
 
     return (
       <Fragment>
-        <Notifications listNotifications={listNotifications} />
+        <Notifications
+          listNotifications={listNotifications}
+          displayDrawer={this.state.displayDrawer}
+          handleDisplayDrawer={this.handleDisplayDrawer}
+          handleHideDrawer={this.handleHideDrawer}
+        />
         <div className={css(styles['sans-serif'])}>
           <Header />
           <div className={css(styles.padding)}>
