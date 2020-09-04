@@ -1,4 +1,4 @@
-import React, { Fragment, Component, createRef } from 'react';
+import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
@@ -11,52 +11,38 @@ class Notifications extends Component {
   constructor(props) {
     super(props);
     this.markAsRead = this.markAsRead.bind(this);
-    this.menuOnClick = this.menuOnClick.bind(this);
-    this.closeOnClick = this.closeOnClick.bind(this);
-    this.state = {
-      displayDrawer: props.displayDrawer
-    };
-    this.menuRef = createRef();
-    this.closeRef = createRef();
   }
 
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }
 
-  menuOnClick() {
-    this.menuRef.current.style.display = 'none';
-    this.setState({ displayDrawer: true });
-  }
-
-  closeOnClick() {
-    this.menuRef.current.style.display = 'block';
-    this.setState({ displayDrawer: false });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     const currentNotifs = this.props.listNotifications;
     const newNotifs = nextProps.listNotifications;
 
-    const currentDisplay = this.state.displayDrawer;
-    const newDisplay = nextState.displayDrawer;
+    const currentDrawer = this.props.displayDrawer;
+    const newDrawer = nextProps.displayDrawer;
 
     return (
-      newNotifs.length > currentNotifs.length || newDisplay !== currentDisplay
+      newNotifs.length > currentNotifs.length || newDrawer !== currentDrawer
     );
   }
 
   render() {
-    const { listNotifications } = this.props;
-    const { displayDrawer } = this.state;
+    const {
+      listNotifications,
+      displayDrawer,
+      handleDisplayDrawer,
+      handleHideDrawer
+    } = this.props;
 
     return (
       <div className={css(styles.wrapper)} data-testid='wrapper'>
         <div
           className={css(styles.div, styles['menu-item'])}
           data-testid='menu-item'
-          onClick={this.menuOnClick}
-          ref={this.menuRef}
+          onClick={handleDisplayDrawer}
         >
           Your Notifications
         </div>
@@ -91,8 +77,7 @@ class Notifications extends Component {
                 cursor: 'pointer'
               }}
               aria-label='Close'
-              onClick={this.closeOnClick}
-              ref={this.closeRef}
+              onClick={handleHideDrawer}
             >
               <img
                 src={closeIcon}
@@ -108,13 +93,17 @@ class Notifications extends Component {
 }
 
 Notifications.propTypes = {
-  displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape)
+  displayDrawer: PropTypes.bool.isRequired,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func
 };
 
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: []
+  listNotifications: [],
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {}
 };
 
 const opacityKeyframes = {
