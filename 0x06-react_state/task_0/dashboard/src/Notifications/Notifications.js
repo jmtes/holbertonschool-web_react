@@ -78,6 +78,7 @@ class Notifications extends Component {
               }}
               aria-label='Close'
               onClick={handleHideDrawer}
+              data-testid='close-notifs'
             >
               <img
                 src={closeIcon}
