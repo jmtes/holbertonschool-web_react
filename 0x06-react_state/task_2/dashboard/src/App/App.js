@@ -77,6 +77,7 @@ class App extends Component {
 
   render() {
     const { isLoggedIn } = this.state.user;
+    const { user, logOut } = this.state;
 
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
@@ -98,7 +99,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <AppContext.Provider>
+        <AppContext.Provider value={{ user, logOut }}>
           <Notifications
             listNotifications={listNotifications}
             displayDrawer={this.state.displayDrawer}
