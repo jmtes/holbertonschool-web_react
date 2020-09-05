@@ -60,7 +60,15 @@ describe('App', () => {
   });
 
   test('if logged in, course list is displayed and login form is not', () => {
-    const wrapper = shallow(<App isLoggedIn={true} />);
+    const wrapper = shallow(<App />);
+    wrapper.setState({
+      ...wrapper.state(),
+      user: {
+        email: 'juno@domain.tld',
+        password: 'gecgecgec',
+        isLoggedIn: true
+      }
+    });
 
     const login = wrapper.find(Login);
     const courseList = wrapper.find(CourseList);
