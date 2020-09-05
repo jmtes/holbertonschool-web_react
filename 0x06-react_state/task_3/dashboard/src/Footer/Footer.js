@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+
+import AppContext from '../App/AppContext';
 
 import { getFullYear, getFooterCopy } from '../utils/utils';
 
 const Footer = () => {
+  const appContext = useContext(AppContext);
+
+  const { user } = appContext;
+
   return (
     <div className={css(styles.footer)}>
       <p>{`Copyright ${getFullYear()} - ${getFooterCopy(true)}`}</p>
+      {user.isLoggedIn && <p>Contact us</p>}
     </div>
   );
 };
