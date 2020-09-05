@@ -64,6 +64,7 @@ const Login = (props) => {
             type='submit'
             className={css(styles.button)}
             disabled={!enableSubmit}
+            data-testid='submit'
           />
         </form>
       </div>
