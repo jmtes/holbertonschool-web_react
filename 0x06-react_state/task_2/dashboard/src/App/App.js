@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   padding: {
     '@media (min-width: 901px)': {
-      padding: '4rem'
+      padding: '1rem 4rem 4rem 4rem'
     },
     '@media (max-width: 900px)': {
       padding: '2rem 2rem 50px 2rem'
