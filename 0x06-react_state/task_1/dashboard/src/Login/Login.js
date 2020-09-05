@@ -4,13 +4,18 @@ import PropTypes from 'prop-types';
 
 const Login = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLoginSubmit = (ev) => {
-    console.log('handleloginsubmit');
+  const handleLoginSubmit = (event) => {
     setIsLoggedIn(true);
 
-    ev.preventDefault();
+    event.preventDefault();
   };
+
+  const handleChangeEmail = (event) => setEmail(event.target.value);
+
+  const handleChangePassword = (event) => setPassword(event.target.value);
 
   return (
     <Fragment>
@@ -24,14 +29,26 @@ const Login = (props) => {
             >
               Email:
             </label>
-            <input type='email' name='email' id='email' />
+            <input
+              type='email'
+              name='email'
+              id='email'
+              value={email}
+              onChange={handleChangeEmail}
+            />
           </div>
 
           <div className={css(styles['input-group'])}>
             <label htmlFor='password' className={css(styles.label)}>
               Password:
             </label>
-            <input type='password' name='password' id='password' />
+            <input
+              type='password'
+              name='password'
+              id='password'
+              value={password}
+              onChange={handleChangePassword}
+            />
           </div>
 
           <input type='submit' className={css(styles.button)} />
