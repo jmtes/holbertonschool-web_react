@@ -19,13 +19,13 @@ describe('Login', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  test('renders two input tags', () => {
+  test('renders three input tags', () => {
     const wrapper = shallow(<Login />);
 
     const inputs = wrapper.find('input');
     const labels = wrapper.find('label');
 
-    expect(inputs.length).toBe(2);
+    expect(inputs.length).toBe(3);
     expect(labels.length).toBe(2);
   });
 });
