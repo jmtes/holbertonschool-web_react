@@ -6,6 +6,7 @@ const Login = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [enableSubmit, setEnableSubmit] = useState(false);
 
   const handleLoginSubmit = (event) => {
     setIsLoggedIn(true);
@@ -13,9 +14,17 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-  const handleChangeEmail = (event) => setEmail(event.target.value);
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
 
-  const handleChangePassword = (event) => setPassword(event.target.value);
+    if (email !== '' && password !== '') setEnableSubmit(true);
+  };
+
+  const handleChangePassword = (event) => {
+    setPassword(event.target.value);
+
+    if (email !== '' && password !== '') setEnableSubmit(true);
+  };
 
   return (
     <Fragment>
@@ -51,7 +60,11 @@ const Login = (props) => {
             />
           </div>
 
-          <input type='submit' className={css(styles.button)} />
+          <input
+            type='submit'
+            className={css(styles.button)}
+            disabled={!enableSubmit}
+          />
         </form>
       </div>
     </Fragment>
