@@ -7,7 +7,6 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      isLoggedIn: props.isLoggedIn,
       email: '',
       password: '',
       enableSubmit: false
@@ -19,27 +18,27 @@ class Login extends Component {
   }
 
   handleLoginSubmit(event) {
-    this.setState({ ...this.state, isLoggedIn: true });
+    this.props.logIn();
 
     event.preventDefault();
   }
 
   handleChangeEmail(event) {
-    this.setState({ ...this.state, email: event.target.value });
+    this.setState({ ...this.state, email: event.target.value }, () => {
+      const { email, password } = this.state;
 
-    const { email, password } = this.state;
-
-    if (email !== '' && password !== '')
-      this.setState({ ...this.state, enableSubmit: true });
+      if (email !== '' && password !== '')
+        this.setState({ ...this.state, enableSubmit: true });
+    });
   }
 
   handleChangePassword(event) {
-    this.setState({ ...this.state, password: event.target.value });
+    this.setState({ ...this.state, password: event.target.value }, () => {
+      const { email, password } = this.state;
 
-    const { email, password } = this.state;
-
-    if (email !== '' && password !== '')
-      this.setState({ ...this.state, enableSubmit: true });
+      if (email !== '' && password !== '')
+        this.setState({ ...this.state, enableSubmit: true });
+    });
   }
 
   render() {
@@ -127,11 +126,11 @@ const styles = StyleSheet.create({
 });
 
 Login.propTypes = {
-  isLoggedIn: PropTypes.bool
+  logIn: PropTypes.func
 };
 
 Login.defaultProps = {
-  isLoggedIn: false
+  logIn: () => {}
 };
 
 export default Login;
