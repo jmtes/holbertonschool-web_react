@@ -164,4 +164,32 @@ describe('Notifications', () => {
     expect(shouldComponentUpdate).toHaveBeenCalledTimes(3);
     expect(shouldComponentUpdate).toHaveLastReturnedWith(false);
   });
+
+  test('clicking menu item calls handleDisplayDrawer', () => {
+    const handleDisplayDrawer = jest.fn();
+
+    const wrapper = shallow(
+      <Notifications handleDisplayDrawer={handleDisplayDrawer} />
+    );
+
+    const menuItem = wrapper.find('[data-testid="menu-item"]');
+    expect(menuItem.length).toBe(1);
+
+    menuItem.simulate('click');
+    expect(handleDisplayDrawer).toHaveBeenCalledTimes(1);
+  });
+
+  test('clicking close button calls hideDisplayDrawer', () => {
+    const handleHideDrawer = jest.fn();
+
+    const wrapper = shallow(
+      <Notifications displayDrawer={true} handleHideDrawer={handleHideDrawer} />
+    );
+
+    const close = wrapper.find('[data-testid="close-notifs"]');
+    expect(close.length).toBe(1);
+
+    close.simulate('click');
+    expect(handleHideDrawer).toHaveBeenCalledTimes(1);
+  });
 });
