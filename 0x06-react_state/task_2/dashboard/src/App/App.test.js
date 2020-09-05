@@ -85,15 +85,26 @@ describe('App', () => {
 
     window.alert = jest.fn();
 
-    const testProps = {
-      logOut: jest.fn()
-    };
-    const wrapper = shallow(<App {...testProps} />);
+    const wrapper = shallow(<App />);
+    wrapper.setState({
+      ...wrapper.state(),
+      user: {
+        email: 'juno@domain.tld',
+        password: 'gecgecgec',
+        isLoggedIn: true
+      }
+    });
+
+    expect(wrapper.state().user).toHaveProperty('email', 'juno@domain.tld');
+    expect(wrapper.state().user).toHaveProperty('password', 'gecgecgec');
+    expect(wrapper.state().user).toHaveProperty('isLoggedIn', true);
 
     map.keydown({ key: 'Control' });
     map.keydown({ key: 'h' });
 
-    expect(testProps.logOut).toHaveBeenCalled();
+    expect(wrapper.state().user).toHaveProperty('email', '');
+    expect(wrapper.state().user).toHaveProperty('password', '');
+    expect(wrapper.state().user).toHaveProperty('isLoggedIn', false);
     expect(window.alert).toHaveBeenCalledWith('Logging you out');
   });
 
@@ -112,6 +123,44 @@ describe('App', () => {
 
       wrapper.instance().handleHideDrawer();
       expect(wrapper.state()).toHaveProperty('displayDrawer', false);
+    });
+  });
+
+  describe('login/logout work as expected', () => {
+    test('login correctly sets state', () => {
+      const wrapper = shallow(<App />);
+
+      expect(wrapper.state().user).toHaveProperty('email', '');
+      expect(wrapper.state().user).toHaveProperty('password', '');
+      expect(wrapper.state().user).toHaveProperty('isLoggedIn', false);
+
+      wrapper.instance().logIn('juno@domain.tld', 'gecgecgec');
+
+      expect(wrapper.state().user).toHaveProperty('email', 'juno@domain.tld');
+      expect(wrapper.state().user).toHaveProperty('password', 'gecgecgec');
+      expect(wrapper.state().user).toHaveProperty('isLoggedIn', true);
+    });
+
+    test('logout correctly sets state', () => {
+      const wrapper = shallow(<App />);
+      wrapper.setState({
+        ...wrapper.state(),
+        user: {
+          email: 'juno@domain.tld',
+          password: 'gecgecgec',
+          isLoggedIn: true
+        }
+      });
+
+      expect(wrapper.state().user).toHaveProperty('email', 'juno@domain.tld');
+      expect(wrapper.state().user).toHaveProperty('password', 'gecgecgec');
+      expect(wrapper.state().user).toHaveProperty('isLoggedIn', true);
+
+      wrapper.state().logOut();
+
+      expect(wrapper.state().user).toHaveProperty('email', '');
+      expect(wrapper.state().user).toHaveProperty('password', '');
+      expect(wrapper.state().user).toHaveProperty('isLoggedIn', false);
     });
   });
 });
