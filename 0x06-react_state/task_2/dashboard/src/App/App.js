@@ -10,7 +10,7 @@ import CourseList from '../CourseList/CourseList';
 import BodySection from '../BodySection/BodySection';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 
-import AppContext from './AppContext';
+import AppContext, { user } from './AppContext';
 
 class App extends Component {
   constructor(props) {
@@ -20,11 +20,7 @@ class App extends Component {
     this.logIn = this.logIn.bind(this);
     this.state = {
       displayDrawer: false,
-      user: {
-        email: '',
-        password: '',
-        isLoggedIn: false
-      },
+      user,
       logOut: () =>
         this.setState({
           ...this.state,
