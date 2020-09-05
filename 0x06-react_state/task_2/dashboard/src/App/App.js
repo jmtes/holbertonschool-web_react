@@ -1,5 +1,4 @@
 import React, { Fragment, Component } from 'react';
-import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
 import Header from '../Header/Header';
