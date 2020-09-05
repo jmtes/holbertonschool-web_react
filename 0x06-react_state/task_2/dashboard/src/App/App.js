@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
-    this.login = this.logIn.bind(this);
+    this.logIn = this.logIn.bind(this);
     this.state = {
       displayDrawer: false,
       user: {
