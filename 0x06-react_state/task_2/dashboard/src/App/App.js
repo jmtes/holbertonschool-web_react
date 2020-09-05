@@ -10,13 +10,26 @@ import CourseList from '../CourseList/CourseList';
 import BodySection from '../BodySection/BodySection';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 
+import AppContext from './AppContext';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.login = this.logIn.bind(this);
     this.state = {
-      displayDrawer: false
+      displayDrawer: false,
+      user: {
+        email: '',
+        password: '',
+        isLoggedIn: false
+      },
+      logOut: () =>
+        this.setState({
+          ...this.state,
+          user: { email: '', password: '', isLoggedIn: false }
+        })
     };
   }
 
@@ -26,6 +39,13 @@ class App extends Component {
 
   handleHideDrawer() {
     this.setState({ displayDrawer: false });
+  }
+
+  logIn(email, password) {
+    this.setState({
+      ...this.state,
+      user: { email, password, isLoggedIn: true }
+    });
   }
 
   componentDidMount() {
@@ -56,7 +76,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn } = this.state.user;
 
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
@@ -78,53 +98,45 @@ class App extends Component {
 
     return (
       <Fragment>
-        <Notifications
-          listNotifications={listNotifications}
-          displayDrawer={this.state.displayDrawer}
-          handleDisplayDrawer={this.handleDisplayDrawer}
-          handleHideDrawer={this.handleHideDrawer}
-        />
-        <div className={css(styles['sans-serif'])}>
-          <Header />
-          <div className={css(styles.padding)}>
-            {!isLoggedIn && (
-              <BodySectionWithMarginBottom title='Log in to continue'>
-                <Login />
-              </BodySectionWithMarginBottom>
-            )}
-            {isLoggedIn && (
-              <BodySectionWithMarginBottom title='Course List'>
-                <CourseList listCourses={listCourses} />
-              </BodySectionWithMarginBottom>
-            )}
-            <BodySection title='News from the School'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                accumsan ex ut erat tincidunt, vel euismod magna eleifend.
-                Aenean posuere quis urna vitae aliquam. Fusce tristique vel diam
-                id volutpat. Nunc vitae aliquam mi, vestibulum mollis augue. In
-                efficitur pellentesque aliquet. Mauris eleifend orci at
-                convallis viverra. Interdum et malesuada fames ac ante ipsum
-                primis in faucibus. Nulla vel nunc magna.
-              </p>
-            </BodySection>
+        <AppContext.Provider>
+          <Notifications
+            listNotifications={listNotifications}
+            displayDrawer={this.state.displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
+          />
+          <div className={css(styles['sans-serif'])}>
+            <Header />
+            <div className={css(styles.padding)}>
+              {!isLoggedIn && (
+                <BodySectionWithMarginBottom title='Log in to continue'>
+                  <Login logIn={this.logIn} />
+                </BodySectionWithMarginBottom>
+              )}
+              {isLoggedIn && (
+                <BodySectionWithMarginBottom title='Course List'>
+                  <CourseList listCourses={listCourses} />
+                </BodySectionWithMarginBottom>
+              )}
+              <BodySection title='News from the School'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                  accumsan ex ut erat tincidunt, vel euismod magna eleifend.
+                  Aenean posuere quis urna vitae aliquam. Fusce tristique vel
+                  diam id volutpat. Nunc vitae aliquam mi, vestibulum mollis
+                  augue. In efficitur pellentesque aliquet. Mauris eleifend orci
+                  at convallis viverra. Interdum et malesuada fames ac ante
+                  ipsum primis in faucibus. Nulla vel nunc magna.
+                </p>
+              </BodySection>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </AppContext.Provider>
       </Fragment>
     );
   }
 }
-
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func
-};
-
-App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {}
-};
 
 const styles = StyleSheet.create({
   'sans-serif': {
