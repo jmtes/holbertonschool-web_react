@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { logOut } = this.props;
+    const { logOut } = this.state;
     const keyMap = {};
 
     window.addEventListener('keydown', (ev) => {
