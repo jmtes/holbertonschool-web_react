@@ -1,29 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import PropTypes from 'prop-types';
 
-const Login = () => {
+const Login = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn);
+
+  const handleLoginSubmit = (ev) => {
+    console.log('handleloginsubmit');
+    setIsLoggedIn(true);
+
+    ev.preventDefault();
+  };
+
   return (
     <Fragment>
       <p>Log in to access the full dashboard</p>
-      <div className={css(styles.form)}>
-        <div className={css(styles['input-group'])}>
-          <label
-            htmlFor='email'
-            className={css(styles.label, styles['email-label'])}
-          >
-            Email:
-          </label>
-          <input type='email' name='email' id='email' />
-        </div>
+      <div>
+        <form className={css(styles.form)} onSubmit={handleLoginSubmit}>
+          <div className={css(styles['input-group'])}>
+            <label
+              htmlFor='email'
+              className={css(styles['email-label'], styles.label)}
+            >
+              Email:
+            </label>
+            <input type='email' name='email' id='email' />
+          </div>
 
-        <div className={css(styles['input-group'])}>
-          <label htmlFor='password' className={css(styles.label)}>
-            Password:
-          </label>
-          <input type='password' name='password' id='password' />
-        </div>
+          <div className={css(styles['input-group'])}>
+            <label htmlFor='password' className={css(styles.label)}>
+              Password:
+            </label>
+            <input type='password' name='password' id='password' />
+          </div>
 
-        <button className={css(styles.button)}>OK</button>
+          <input type='submit' className={css(styles.button)} />
+        </form>
       </div>
     </Fragment>
   );
@@ -41,7 +53,7 @@ const styles = StyleSheet.create({
     }
   },
   'email-label': {
-    paddingLeft: 0
+    padding: '0'
   },
   button: {
     '@media (min-width: 901px)': {
@@ -62,5 +74,13 @@ const styles = StyleSheet.create({
     }
   }
 });
+
+Login.propTypes = {
+  isLoggedIn: PropTypes.bool
+};
+
+Login.defaultProps = {
+  isLoggedIn: false
+};
 
 export default Login;
