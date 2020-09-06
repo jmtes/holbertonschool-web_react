@@ -56,6 +56,8 @@ class App extends Component {
   }
 
   markNotificationAsRead(id) {
+    const { listNotifications } = this.state;
+
     this.setState({
       ...this.state,
       listNotifications: listNotifications.filter((notif) => notif.id !== id)
