@@ -1,12 +1,18 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
 const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
+  const [checked, setChecked] = useState(false);
+
   const style = { backgroundColor: isHeader ? '#deb5b545' : '#f5f5f5ab' };
 
+  const checkOnChange = ({ target }) => {
+    setChecked(target.checked);
+  };
+
   return (
-    <tr style={style}>
+    <tr style={style} className={checked ? css(styles.rowChecked) : ''}>
       {isHeader ? (
         textSecondCell === null ? (
           <th colSpan='2' className={css(styles.cell)}>
@@ -24,7 +30,10 @@ const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
         )
       ) : (
         <Fragment>
-          <td className={css(styles.cell)}>{textFirstCell}</td>
+          <td className={css(styles.cell)}>
+            <input type='checkbox' onChange={checkOnChange} />
+            {textFirstCell}
+          </td>
           <td className={css(styles.cell)}>{textSecondCell}</td>
         </Fragment>
       )}
@@ -50,6 +59,9 @@ const styles = StyleSheet.create({
   },
   'align-left': {
     textAlign: 'left'
+  },
+  rowChecked: {
+    backgroundColor: '#e6e4e4'
   }
 });
 
