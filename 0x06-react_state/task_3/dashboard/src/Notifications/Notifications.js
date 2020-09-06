@@ -10,11 +10,6 @@ import NotificationItemShape from './NotificationItemShape';
 class Notifications extends Component {
   constructor(props) {
     super(props);
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -34,7 +29,8 @@ class Notifications extends Component {
       listNotifications,
       displayDrawer,
       handleDisplayDrawer,
-      handleHideDrawer
+      handleHideDrawer,
+      markNotificationAsRead
     } = this.props;
 
     return (
@@ -59,7 +55,7 @@ class Notifications extends Component {
                       type={type}
                       value={value}
                       html={html}
-                      markAsRead={this.markAsRead}
+                      markAsRead={markNotificationAsRead}
                     />
                   ))}
                 </ul>
