@@ -19,6 +19,7 @@ class NotificationItem extends PureComponent {
         className={css(styles[type], styles.small)}
         data-notification-type={type}
         dangerouslySetInnerHTML={html}
+        onClick={() => markAsRead(id)}
       ></li>
     );
   }
