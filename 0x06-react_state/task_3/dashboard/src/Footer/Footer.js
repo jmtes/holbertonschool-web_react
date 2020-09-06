@@ -11,7 +11,7 @@ const Footer = () => {
       {(value) => (
         <div className={css(styles.footer)}>
           <p>{`Copyright ${getFullYear()} - ${getFooterCopy(true)}`}</p>
-          {value.user.isLoggedIn && <p>Contact us</p>}
+          {value.user.isLoggedIn && <p data-testid='contact'>Contact us</p>}
         </div>
       )}
     </AppContext.Consumer>
