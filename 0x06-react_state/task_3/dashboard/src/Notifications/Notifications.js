@@ -8,10 +8,6 @@ import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 
 class Notifications extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       listNotifications,
