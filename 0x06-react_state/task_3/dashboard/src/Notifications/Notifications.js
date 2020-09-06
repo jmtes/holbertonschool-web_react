@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
@@ -7,21 +7,9 @@ import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 
-class Notifications extends Component {
+class Notifications extends PureComponent {
   constructor(props) {
     super(props);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    const currentNotifs = this.props.listNotifications;
-    const newNotifs = nextProps.listNotifications;
-
-    const currentDrawer = this.props.displayDrawer;
-    const newDrawer = nextProps.displayDrawer;
-
-    return (
-      newNotifs.length > currentNotifs.length || newDrawer !== currentDrawer
-    );
   }
 
   render() {
