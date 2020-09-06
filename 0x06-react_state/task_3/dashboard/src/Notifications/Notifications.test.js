@@ -111,17 +111,6 @@ describe('Notifications', () => {
     expect(noNewNotifs.text()).toBe('No new notifications for now');
   });
 
-  test('markAsRead calls console.log', () => {
-    console.log = jest.fn();
-
-    const wrapper = shallow(<Notifications />);
-    wrapper.instance().markAsRead(0);
-
-    expect(console.log).toHaveBeenCalledWith(
-      `Notification 0 has been marked as read`
-    );
-  });
-
   test('updates only if there are new notifs', () => {
     const initialNotifs = [
       { id: 0, type: 'default', value: 'test 0' },
@@ -131,38 +120,27 @@ describe('Notifications', () => {
       <Notifications displayDrawer={true} listNotifications={initialNotifs} />
     );
 
-    const shouldComponentUpdate = jest.spyOn(
-      Notifications.prototype,
-      'shouldComponentUpdate'
-    );
+    const render = jest.spyOn(Notifications.prototype, 'render');
 
-    expect(shouldComponentUpdate).toHaveBeenCalledTimes(0);
+    expect(render).toHaveBeenCalledTimes(0);
 
     // listNotifications is longer
     const longerNotifs = initialNotifs.slice();
     longerNotifs.push({ id: 2, type: 'default', value: 'test 2' });
 
     wrapper.setProps({ listNotifications: longerNotifs });
+    expect(render).toHaveBeenCalledTimes(1);
 
-    expect(shouldComponentUpdate).toHaveBeenCalledTimes(1);
-    expect(shouldComponentUpdate).toHaveLastReturnedWith(true);
-
-    // listNotifications stays same length
-    const sameNotifs = longerNotifs.slice();
-
-    wrapper.setProps({ listNotifications: sameNotifs });
-
-    expect(shouldComponentUpdate).toHaveBeenCalledTimes(2);
-    expect(shouldComponentUpdate).toHaveLastReturnedWith(false);
+    // listNotifications stays same
+    wrapper.setProps({ listNotifications: longerNotifs });
+    expect(render).toHaveBeenCalledTimes(1);
 
     // listNotifications is shorter
-    const shorterNotifs = sameNotifs.slice();
+    const shorterNotifs = longerNotifs.slice();
     shorterNotifs.pop();
 
-    wrapper.setProps({ listNotifications: sameNotifs });
-
-    expect(shouldComponentUpdate).toHaveBeenCalledTimes(3);
-    expect(shouldComponentUpdate).toHaveLastReturnedWith(false);
+    wrapper.setProps({ listNotifications: shorterNotifs });
+    expect(render).toHaveBeenCalledTimes(2);
   });
 
   test('clicking menu item calls handleDisplayDrawer', () => {
