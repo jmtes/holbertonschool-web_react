@@ -163,4 +163,21 @@ describe('App', () => {
       expect(wrapper.state().user).toHaveProperty('isLoggedIn', false);
     });
   });
+
+  test('markNotificationAsRead works as expected', () => {
+    const testNotifs = [
+      { id: 1, type: 'default', value: 'test' },
+      { id: 2, type: 'urgent', value: 'test' }
+    ];
+
+    const wrapper = shallow(<App />);
+    wrapper.setState({ ...wrapper.state(), listNotifications: testNotifs });
+
+    expect(wrapper.state().listNotifications.length).toBe(2);
+
+    wrapper.instance().markNotificationAsRead(1);
+
+    expect(wrapper.state().listNotifications.length).toBe(1);
+    expect(wrapper.state().listNotifications[0]).toHaveProperty('id', 2);
+  });
 });
