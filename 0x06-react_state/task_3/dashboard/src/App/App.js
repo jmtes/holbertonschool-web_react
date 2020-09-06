@@ -17,6 +17,7 @@ class App extends Component {
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
+    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.state = {
       displayDrawer: false,
       user,
@@ -51,6 +52,13 @@ class App extends Component {
     this.setState({
       ...this.state,
       user: { email, password, isLoggedIn: true }
+    });
+  }
+
+  markNotificationAsRead(id) {
+    this.setState({
+      ...this.state,
+      listNotifications: listNotifications.filter((notif) => notif.id !== id)
     });
   }
 
@@ -99,6 +107,7 @@ class App extends Component {
             displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
+            markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles['sans-serif'])}>
             <Header />
