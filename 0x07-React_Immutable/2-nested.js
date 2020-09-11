@@ -1,12 +1,16 @@
+import immutable from 'immutable';
+
+const { Map } = immutable;
+
 export default function accessImmutableObject(object, array) {
   let search = object;
 
-  array.forEach((val) => {
-    const found = search[val];
+  for (let i = 0; i < array.length; i++) {
+    const found = search[array[i]];
 
-    if (!found) return found;
+    if (!found) return undefined;
     search = found;
-  });
+  }
 
-  return search;
+  return typeof search === 'object' ? Map(search) : search;
 }
