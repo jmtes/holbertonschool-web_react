@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import {
   LOGIN,
   LOGOUT,
@@ -7,8 +9,6 @@ import {
   HIDE_NOTIFICATION_DRAWER
 } from './uiActionTypes';
 
-import apiResponse from '../../dist/login-success.json';
-
 export const login = (email, password) =>
   dispatch({
     type: LOGIN,
@@ -17,6 +17,10 @@ export const login = (email, password) =>
 
 export const loginRequest = (email, password) => {
   login(email, password);
+
+  fetch('/login-success.json')
+    .then((res) => loginSuccess())
+    .catch((err) => loginFailure());
 };
 
 export const logout = () => dispatch({ type: LOGOUT });
