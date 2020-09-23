@@ -13,12 +13,10 @@ const courseReducer = (state = initialState, action = {}) => {
 
   switch (action.type) {
     case FETCH_COURSE_SUCCESS:
-      courses = action.data.map((course) => {
-        course.isSelected = false;
-        return course;
-      });
-
-      return { ...state, courses };
+      return {
+        ...state,
+        courses: action.data.map((course) => ({ ...course, isSelected: false }))
+      };
     case SELECT_COURSE:
       courses = state.courses.map((course) => {
         if (course.id === action.index) course.isSelected = true;
