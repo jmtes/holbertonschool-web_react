@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import {
   LOGIN,
   LOGIN_SUCCESS,
@@ -7,11 +9,11 @@ import {
   HIDE_NOTIFICATION_DRAWER
 } from '../actions/uiActionTypes';
 
-const initialState = {
+const initialState = Map({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
   user: {}
-};
+});
 
 const uiReducer = (state = initialState, action = {}) => {
   switch (action.type) {
