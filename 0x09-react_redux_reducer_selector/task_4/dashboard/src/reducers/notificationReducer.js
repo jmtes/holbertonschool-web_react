@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import {
   MARK_AS_READ,
   SET_TYPE_FILTER,
@@ -5,27 +7,33 @@ import {
   NotificationTypeFilters
 } from '../actions/notificationActionTypes';
 
-const initialState = {
+import { notificationNormalizer } from '../schema/notifications';
+
+const initialState = Map({
   notifications: [],
   filter: 'DEFAULT'
-};
+});
 
 const notificationReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
-      return {
-        ...state,
-        notifications: action.data.map((notif) => ({ ...notif, isRead: false }))
-      };
+      action.data = notificationNormalizer(
+        action.data.map((notif) => ({ ...notif, isRead: false }))
+      );
+      return state.setIn(['notifications'], action.data);
     case MARK_AS_READ:
-      const notifications = state.notifications.map((notif) => {
-        if (notif.id === action.index) notif.isRead = true;
-        return notif;
-      });
-
-      return { ...state, notifications };
+      return state.setIn(
+        [
+          'notifications',
+          'entities',
+          'notifications',
+          action.index.toString(),
+          'isRead'
+        ],
+        true
+      );
     case SET_TYPE_FILTER:
-      return { ...state, filter: NotificationTypeFilters[action.filter] };
+      return state.setIn(['filter'], action.filter);
     default:
       return state;
   }

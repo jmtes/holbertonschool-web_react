@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import notificationReducer from './notificationReducer';
 
 import {
@@ -8,10 +10,10 @@ import {
 } from '../actions/notificationActionTypes';
 
 describe('notificationReducer', () => {
-  const initialState = {
+  const initialState = Map({
     notifications: [],
     filter: 'DEFAULT'
-  };
+  });
 
   const data = [
     {
@@ -41,18 +43,20 @@ describe('notificationReducer', () => {
     const state = notificationReducer(initialState, {
       type: FETCH_NOTIFICATIONS_SUCCESS,
       data
-    });
+    }).toJS();
 
     // Check returned state
     expect(state).toHaveProperty('filter', 'DEFAULT');
     expect(Object.prototype.toString.call(state.notifications)).toBe(
-      '[object Array]'
+      '[object Object]'
     );
 
+    const notifications = state.notifications.entities.notifications;
+
     // Check notifications objects
-    expect(state.notifications[0]).toEqual({ ...data[0], isRead: false });
-    expect(state.notifications[1]).toEqual({ ...data[1], isRead: false });
-    expect(state.notifications[2]).toEqual({ ...data[2], isRead: false });
+    expect(notifications[1]).toEqual({ ...data[0], isRead: false });
+    expect(notifications[2]).toEqual({ ...data[1], isRead: false });
+    expect(notifications[3]).toEqual({ ...data[2], isRead: false });
   });
 
   test('state changes as expected when MARK_AS_READ is passed', () => {
@@ -62,18 +66,20 @@ describe('notificationReducer', () => {
       data
     });
 
-    state = notificationReducer(state, { type: MARK_AS_READ, index: 2 });
+    state = notificationReducer(state, { type: MARK_AS_READ, index: 2 }).toJS();
 
     // Check returned state
     expect(state).toHaveProperty('filter', 'DEFAULT');
     expect(Object.prototype.toString.call(state.notifications)).toBe(
-      '[object Array]'
+      '[object Object]'
     );
 
+    const notifications = state.notifications.entities.notifications;
+
     // Check notifications objects
-    expect(state.notifications[0]).toEqual({ ...data[0], isRead: false });
-    expect(state.notifications[1]).toEqual({ ...data[1], isRead: true });
-    expect(state.notifications[2]).toEqual({ ...data[2], isRead: false });
+    expect(notifications[1]).toEqual({ ...data[0], isRead: false });
+    expect(notifications[2]).toEqual({ ...data[1], isRead: true });
+    expect(notifications[3]).toEqual({ ...data[2], isRead: false });
   });
 
   test('state changes as expected when SET_TYPE_FILTER is passed', () => {
@@ -86,14 +92,16 @@ describe('notificationReducer', () => {
     state = notificationReducer(state, {
       type: SET_TYPE_FILTER,
       filter: NotificationTypeFilters.URGENT
-    });
+    }).toJS();
 
     expect(state).toHaveProperty('filter', 'URGENT');
+
+    state = Map(state);
 
     state = notificationReducer(state, {
       type: SET_TYPE_FILTER,
       filter: NotificationTypeFilters.DEFAULT
-    });
+    }).toJS();
 
     expect(state).toHaveProperty('filter', 'DEFAULT');
   });
