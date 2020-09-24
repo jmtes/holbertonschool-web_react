@@ -9,9 +9,9 @@ import {
 } from '../actions/courseActionTypes';
 
 describe('courseReducer', () => {
-  const initialState = {
-    courses: Map()
-  };
+  const initialState = Map({
+    courses: []
+  });
 
   const courses = [
     {
@@ -41,7 +41,7 @@ describe('courseReducer', () => {
     const state = courseReducer(initialState, {
       type: FETCH_COURSE_SUCCESS,
       data: courses
-    });
+    }).toJS();
 
     expect(Object.keys(state).length).toBe(1);
     expect(state).toHaveProperty('courses');
@@ -49,7 +49,7 @@ describe('courseReducer', () => {
       '[object Object]'
     );
 
-    const stateCourses = state.courses.toJS().entities.courses;
+    const stateCourses = state.courses.entities.courses;
 
     // Check each individual object
     expect(stateCourses[1]).toEqual({ ...courses[0], isSelected: false });
@@ -67,7 +67,7 @@ describe('courseReducer', () => {
     });
 
     // Select course
-    state = courseReducer(state, { type: SELECT_COURSE, index });
+    state = courseReducer(state, { type: SELECT_COURSE, index }).toJS();
 
     expect(Object.keys(state).length).toBe(1);
     expect(state).toHaveProperty('courses');
@@ -75,7 +75,7 @@ describe('courseReducer', () => {
       '[object Object]'
     );
 
-    const stateCourses = state.courses.toJS().entities.courses;
+    const stateCourses = state.courses.entities.courses;
 
     // Expect only course with id of 2 to be selected
     expect(stateCourses[1]).toEqual({ ...courses[0], isSelected: false });
@@ -87,23 +87,22 @@ describe('courseReducer', () => {
     const index = 3;
 
     // Get courses
-    let state = courseReducer(
-      { ...initialState },
-      {
-        type: FETCH_COURSE_SUCCESS,
-        data: courses
-      }
-    );
+    let state = courseReducer(initialState, {
+      type: FETCH_COURSE_SUCCESS,
+      data: courses
+    });
 
     // Select course
-    state = courseReducer(state, { type: SELECT_COURSE, index });
+    state = courseReducer(state, { type: SELECT_COURSE, index }).toJS();
 
-    let stateCourses = state.courses.toJS().entities.courses;
+    let stateCourses = state.courses.entities.courses;
 
     expect(stateCourses[3]).toEqual({ ...courses[2], isSelected: true });
 
+    state = Map(state);
+
     // Unselect course
-    state = courseReducer(state, { type: UNSELECT_COURSE, index });
+    state = courseReducer(state, { type: UNSELECT_COURSE, index }).toJS();
 
     expect(Object.keys(state).length).toBe(1);
     expect(state).toHaveProperty('courses');
@@ -111,7 +110,7 @@ describe('courseReducer', () => {
       '[object Object]'
     );
 
-    stateCourses = state.courses.toJS().entities.courses;
+    stateCourses = state.courses.entities.courses;
 
     // Expect course with id of 3 to be unselected again
     expect(stateCourses[1]).toEqual({ ...courses[0], isSelected: false });
