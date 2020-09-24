@@ -9,7 +9,7 @@ import {
 import coursesNormalizer from '../schema/courses';
 
 const initialState = {
-  courses: []
+  courses: Map()
 };
 
 const courseReducer = (state = initialState, action = {}) => {

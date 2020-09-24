@@ -10,7 +10,7 @@ import {
 
 describe('courseReducer', () => {
   const initialState = {
-    courses: []
+    courses: Map()
   };
 
   const courses = [
